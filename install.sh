@@ -60,6 +60,7 @@ export CRYPTEX_LIB_DIR=${CRYPTEX_USR_DIR}/lib
 
 echo "Copying app into cryptex"
 
+mkdir -p "${CRYPTEX_APP_DIR}"
 cp -R "${APP_PATH}" "${CRYPTEX_APP_DIR}/" || { echo "Failed to copy app into cryptex"; exit 1; }
 
 # Create unique label for appregistrard based on app bundle ID
