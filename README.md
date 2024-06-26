@@ -23,3 +23,21 @@ If you're on iOS 17, you'll have to bypass this signature validation in SpringBo
 ## Where's the code for appregistrard?
 
 I'm not ready to make that code available, so you'll have to just trust me for now. Feel free to reverse it in case you're worried about anything nefarious going on. All it does is call a LaunchServices API to register apps inside the cryptex.
+
+Here's the most relevant code snippet, which you may adapt to write your own `appregistrard` if desired:
+
+```swift
+let registration: [String: Any] = [
+    "Path": <path to application bundle>,
+    kCFBundleIdentifierKey as String: <app bundle id>
+]
+
+if LSApplicationWorkspace.default.registerApplicationDictionary(registration) {
+    // App registered successfully
+
+    notify_post("com.apple.mobile.application_installed")
+    notify_post("com.apple.itunesstored.application_installed")
+} else {
+    // App registration failed
+}
+```
