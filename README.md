@@ -41,3 +41,12 @@ if LSApplicationWorkspace.default.registerApplicationDictionary(registration) {
     // App registration failed
 }
 ```
+
+## Customizing Behavior (optional)
+
+Apps inside the cryptex can customize the way they're installed by adding a `ResearchApp` dictionary to their `Info.plist` file.
+
+Currently, `appregistrard` supports the following properties in the `ResearchApp` dictionary:
+
+- `Removable` (BOOL): set to `YES` to allow the app to be deleted by the user like any normal app
+- `WantsContainer` (BOOL): set to `YES` for the daemon to create a data container for the app
