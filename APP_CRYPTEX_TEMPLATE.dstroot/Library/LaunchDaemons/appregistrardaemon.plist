@@ -6,8 +6,6 @@
 	<false/>
 	<key>EnableTransactions</key>
 	<true/>
-	<key>UserName</key>
-	<string>mobile</string>
 	<key>Label</key>
 	<string>LABEL_HERE</string>
 	<key>EnvironmentVariables</key>

@@ -50,3 +50,6 @@ Currently, `appregistrard` supports the following properties in the `ResearchApp
 
 - `Removable` (BOOL): set to `YES` to allow the app to be deleted by the user like any normal app
 - `WantsContainer` (BOOL): set to `YES` for the daemon to create a data container for the app
+- `SystemApp` (BOOL): set to `YES` to install as a system app (requires app to have the `com.apple.private.security.system-application` entitlement)
+
+I highly recommend setting at least `WantsContainer` to `YES`, allowing the app to have a container just like any other app. This also allows app extensions such as widgets to work more reliably.
