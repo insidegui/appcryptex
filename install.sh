@@ -50,11 +50,7 @@ echo "Creating distribution root"
 # Copy template dstroot into build dir
 cp -Rf 'APP_CRYPTEX_TEMPLATE.dstroot' "${CRYPTEX_ROOT_DIR}"
 
-export CRYPTEX_LAUNCHD_DIR=${CRYPTEX_ROOT_DIR}/Library/LaunchDaemons
 export CRYPTEX_APP_DIR=${CRYPTEX_ROOT_DIR}/System/Applications
-export CRYPTEX_USR_DIR=${CRYPTEX_ROOT_DIR}/usr
-export CRYPTEX_BIN_DIR=${CRYPTEX_USR_DIR}/bin
-export CRYPTEX_LIB_DIR=${CRYPTEX_USR_DIR}/lib
 
 # Copy app bundle into cryptex dstroot
 
@@ -63,27 +59,8 @@ echo "Copying app into cryptex"
 mkdir -p "${CRYPTEX_APP_DIR}"
 cp -R "${APP_PATH}" "${CRYPTEX_APP_DIR}/" || { echo "Failed to copy app into cryptex"; exit 1; }
 
-# Create unique label for appregistrard based on app bundle ID
-
-DAEMON_JOB_ID="${BUNDLE_ID}.appregistrard"
-
-export DAEMON_PLIST_PATH="${CRYPTEX_LAUNCHD_DIR}/${DAEMON_JOB_ID}.plist"
-
-# Rename appregistrard plist to match the new job ID
-mv "${CRYPTEX_LAUNCHD_DIR}/appregistrardaemon.plist" "${DAEMON_PLIST_PATH}"
-
-# Ensure daemon plist exists
-if [ ! -f "$DAEMON_PLIST_PATH" ]; then
-    echo "ERROR: Couldn't find daemon plist path, is the template damaged? Expected at ${DAEMON_PLIST_PATH}"
-    exit 1
-fi
-
-# Set the Label property inside the daemon plist to the new job ID
-/usr/libexec/PlistBuddy -c "Set Label ${DAEMON_JOB_ID}" "${DAEMON_PLIST_PATH}" || { echo "Failed to set the daemon Label"; exit 1; }
-
 export CRYPTEX_PATH="${BUILD_DIR}/${CRYPTEX_ID}.cxbd"
 export CRYPTEX_DMG_PATH="${BUILD_DIR}/${CRYPTEX_ID}.dmg"
-
 
 if [ ! -d "$CRYPTEX_ROOT_DIR" ]; then
     echo "Distribution root doesn't exist at ${CRYPTEX_PATH}"
